@@ -10,7 +10,7 @@ export const sortByDate = () => ({
     type: 'SORT_BY_DATE',
 });
 //Sort By Amount
-export const sortByDate = () => ({
+export const sortByAmount = () => ({
     type: 'SORT_BY_AMOUNT',
 });
 //Set Start Date

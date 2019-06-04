@@ -45,15 +45,12 @@ class ExpenseListFilters extends React.Component {
                         onFocusChange={this.onFocusChange}
                         showClearDates={true}
                         numberOfMonths={1}
-                        isOutsideRande{() => false}
+                        isOutsideRande={() => false}
                     />
                 </div>
         );
     }
 };
-
-const ExpenseListFilters = () 
-);
 
 const mapStateToProps = (state) => ({
         filters: state.filters
