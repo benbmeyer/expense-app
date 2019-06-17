@@ -1,22 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
-import { setTextFilter, sortyByDate, sortByAmount, setStartDate, setEndDate } from '../actions/filters';
+import { setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate } from '../actions/filters';
 
-class ExpenseListFilters extends React.Component {
+export class ExpenseListFilters extends React.Component {
     state = {
-        calanderFocused: null
+        calendarFocused: null
     };
     onDatesChange = ({ startDate, endDate }) => {
         this.props.setStartDate(startDate);
         this.props.setEndDate(endDate);
     };
-    onFocusChange = (calanderFocused) => {
-        this.setState(() => ({ calanderFocused }));
+    onFocusChange = (calendarFocused) => {
+        this.setState(() => ({ calendarFocused }));
     }
     onTextChange = (e) => {
         this.props.setTextFilter(e.target.value);
-    }
+    };
     onSortChange = (e) => {
         if (e.target.value === 'date') {
             this.props.sortyByDate();
@@ -26,34 +26,49 @@ class ExpenseListFilters extends React.Component {
     };
     render() {
         return (
-                <div>
-                    <input type="text"  
+            <div className="content-container">
+                <div className="input-group">
+                    <div className="input-group__item"> 
+                        <input 
+                        type="text"
+                        className="text-input"
+                        placeholder="Search Expenses"
                         value={this.props.filters.text} 
                         onChange={this.onTextChange} 
                     />
-                    <select value={this.props.filters.sortBy} 
-                    onChange={this.onSortChange} 
-                    >
-                        <option value="date">Date</option>
-                        <option value="amount">Amount</option>
-                    </select>
-                    <DateRangePicker
-                        startDate={this.props.fiters.startDate}
-                        endDate={this.props.filters.endDate}
-                        ondatesChange={this.onDatesChange}
-                        focusedInput={this.state.calanderFocused}
-                        onFocusChange={this.onFocusChange}
-                        showClearDates={true}
-                        numberOfMonths={1}
-                        isOutsideRande={() => false}
-                    />
-                </div>
+                    </div>  
+                    <div className="input-group__item">
+                        <select 
+                        className="select"
+                        value={this.props.filters.sortBy} 
+                        onChange={this.onSortChange} 
+                        >
+                            <option value="date">Date</option>
+                            <option value="amount">Amount</option>
+                        </select>
+                    </div>  
+                    <div className="input-group__item">
+                        <DateRangePicker 
+                            startDate={this.props.filters.startDate}
+                            startDateId={this.props.filters.startDate.toString()}
+                            endDate={this.props.filters.endDate}
+                            endDateId={this.props.filters.endDate.toString()}
+                            onDatesChange={this.onDatesChange}
+                            focusedInput={this.state.calendarFocused}
+                            onFocusChange={this.onFocusChange}
+                            showClearDates={true}
+                            numberOfMonths={1}
+                            isOutsideRange={() => false}
+                        />
+                    </div>  
+                </div>     
+            </div>
         );
     }
 };
 
 const mapStateToProps = (state) => ({
-        filters: state.filters
+    filters: state.filters
 });
 
 const mapDispatchToProps = (dispatch) => ({
